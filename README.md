@@ -1,6 +1,8 @@
 # GitHub Actions CI/CD Pipeline with Docker
 
-## Project Overview
+March 25, 2026
+
+<img width="866" height="650" alt="image" src="https://github.com/user-attachments/assets/ab6475b4-8434-4771-9d65-3b5573d1d711" />
 
 This project demonstrates a CI/CD pipeline using GitHub Actions to build, test, and package a Java application with Gradle, and publish it as a Docker image to Docker Hub.
 
@@ -10,6 +12,8 @@ The pipeline includes:
 - Dependency management and security insights
 - Docker image build and push
 - Manual workflow triggers
+
+Link to CI/CD Pipeline with Docker from TechWorld with Nana: https://www.youtube.com/watch?v=R8_veQiYBjI
 
 ## Tech Stack
 
