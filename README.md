@@ -85,7 +85,7 @@ Also updated Spring Boot version to align with Java 17.
 ```
 GitHub → Settings → Advanced Security → Enable Dependency Graph
 ```
-NOTE: Note: There are both repository-level and account-level settings.
+**NOTE:** Note: There are both repository-level and account-level settings.
 
 ### Issue #4: Deprecated Docker Image
 - **Error:** *openjdk:8-jre-alpine* not found
@@ -98,19 +98,20 @@ NOTE: Note: There are both repository-level and account-level settings.
 ```
 if: runner.os == 'Linux'
 ```
-IMPORTANT: Docker builds are typically executed on Linux because containers rely on the host kernel.
+**IMPORTANT:** Docker builds are typically executed on Linux because containers rely on the host kernel.
 
 ### Issue #6: Missing JAR File
 - **Error:** JAR not found during Docker build
 - **Fix:**
-- Added debug step to verify JAR generation
-- Removed hardcoded filename in Dockerfile
+      - Added debug step to verify JAR generation
+      - Removed hardcoded filename in Dockerfile
 
 ## Security & Dependency Management
 
 - **Dependency Graph -** Insights → Dependency Graph
 - **Dependabot Alerts -** Detects vulnerabilities in project dependencies
-IMPORTANT: Dependabot helps automate dependency updates and improves supply chain security.
+
+**IMPORTANT:** Dependabot helps automate dependency updates and improves supply chain security.
 
 ## Key Learnings
 
