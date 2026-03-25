@@ -1,0 +1,102 @@
+Git CI/CD Pipeline with Docker
+
+REPO SET-UP
+
+Clone the repo locally:
+
+git clone https://github.com/nanuchi/my-project.git
+
+Change the remote origin:
+
+git remote -v
+git remote remove origin
+git remote add origin https://github.com/yitzamm/GitHub-Actions-Fundamentals
+git remove -v
+
+Push to your repo using WSL:
+
+git branch -m master main (rename the main branch)
+git branch
+sudo apt update
+sudo apt install gh
+sudo apt install ubuntu-wsl xdg-utils
+sudo apt install wslu
+gh auth login
+gh auth setup-git
+gh auth status
+git push -u origin main
+
+NOTE: We're using gh auth to authenticate through the browser. This can also be done via SSH. Powershell has a Git Credential Manager (GCM) pre-installed that uses a pop-up window for the Git credentials to be entered.
+
+CREATE A NEW WORKFLOW USING THE JAVA WITH GRADLE TEMPLATE
+
+If the application runs on more than 1 os, define a matrix strategy with an OS list, and then reference the list in the runs-on section as follows:
+
+runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+TROUBLESHOOTING
+
+Workflow failure #1:
+
+Found a Gradle/JDK compatibility mismatch. An error occurred when attempting to start the gradle deamon, ERROR msg:  Could not open cp_init remapped class cache; Could not open cp_init generic class cache for initialization script; Could not initialize class org.codehaus.groovy.vmplugin.v7.Java7 Gradle 6 can only run Java 8-13. Jave 17 support starts with Gradle 7.3. 
+
+Fix: Changed distributionUrl=https\://services.gradle.org/distributions/gradle-6.0-bin.zip to distributionUrl=https\://services.gradle.org/distributions/gradle-7.6.4-bin.zip inside the gradle/wrapper > gradle-wrapper.properties file
+
+Workflow failure #2:
+
+Build fail due to an application/dependency config issue. New Gradle requires implementation group rather than compile group.
+
+Fix: Changed compile group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '5.2' to implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '5.2' inside the build.gradle file
+
+Issue with old dependency keyword. Changing testCompile group: 'junit', name: 'junit', version: '4.12' with testImplementation group: 'junit', name: 'junit', version: '4.12'
+
+Other keyword changes include:
+
+compile      -> implementation
+testCompile  -> testImplementation
+runtime      -> runtimeOnly
+testRuntime  -> testRuntimeOnly
+
+Additionally, updating Spring Boot to avoid conflicts with Java 17.
+
+Build failure #3:
+
+Error: HttpError: Dependency submission failed for dependency-graph-reports/java_ci_with_gradle-dependency-submission.json. The Dependency graph is disabled for this repository. Please enable it before submitting snapshots.
+
+Fix:
+
+In GitHub:
+Go to Settings
+2. Open Advanced Security
+3. Find Dependency graph
+4. Click Enable
+
+NOTE: There's a dependency graph per repo setting and there's an account level setting. The account level setting allows to enable all or disable all for private repositories only.
+
+ENABLE A MANUAL TRIGGER
+
+On the events section add:
+
+workflow_dispatch:   # Manual trigger
+
+IMPORTANT: You can find the dependency graph by going to Insights > Dependancy graph. Dependabot can also be enabled for insights regarding potential vulnerabilities in the project. Alerts can also be enabled to be notified accordingly.
+
+BUILD AND PUSH DOCKER IMAGE
+
+
+ERROR: failed to build: failed to solve: openjdk:8-jre-alpine: failed to resolve source metadata for docker.io/library/openjdk:8-jre-alpine: docker.io/library/openjdk:8-jre-alpine: not found
+
+FIX: Since JDK, Gradle and Spring Boot were all updated to newer versions, the image used in the Dockerfile was flagged as deprecated during the build. Changed the FROM openjdk:8-jre-alpine line to FROM eclipse-temurin:17-jre-alpine.
+
+NOTE: Your runtime container must match your build environment.
+
+ERROR: Logging into Docker registry docker.io... /bin/sh: docker: command not found Error: Command failed: docker login -u *** --password-stdin docker.io /bin/sh: docker: command not found
+
+Fix: Isolate the Docker push to ubuntu only while keeping the cross-platform builds. Docker images are Linux-based by default so the workflow failed when trying to build and push the Docker image on the Mac operating system. Linux containers need a Linux kernel whereas Windows/MacOS emulate Linux (extra layer). For that reason, Docker image builds are typically executed on Linux runners because containers rely on the host kernel, and Linux provides native, consistent behavior that matches most production environments.
+
+ERROR: failed to build: failed to solve: failed to compute cache key: failed to calculate checksum of ref d09189cb-1d3f-4984-a57a-14f8dab86177::d1c7lye3d3nkecnadkueuf97e: "/build/libs/my-app-1.0-SNAPSHOT.jar": not found
+
+Fix: Added a debug step to verify the JAR file had been generated before building and pushing the Docker image. Also, removed hardcoded naming in the Dockerfile to prevent file mismatch issues.
