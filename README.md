@@ -103,8 +103,8 @@ if: runner.os == 'Linux'
 ### Issue #6: Missing JAR File
 - **Error:** JAR not found during Docker build
 - **Fix:**
-      - Added debug step to verify JAR generation
-      - Removed hardcoded filename in Dockerfile
+- Added debug step to verify JAR generation
+- Removed hardcoded filename in Dockerfile
 
 ## Security & Dependency Management
 
