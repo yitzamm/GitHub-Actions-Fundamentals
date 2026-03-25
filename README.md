@@ -55,9 +55,7 @@ workflow_dispatch:
 ## Docker Configuration
 
 **Updated Dockerfile**
-```
 <img width="320" height="192" alt="image" src="https://github.com/user-attachments/assets/e981b9da-a892-4211-9808-921083dbba65" />
-```
 
 ## Troubleshooting & Fixes
 
@@ -91,9 +89,7 @@ NOTE: Note: There are both repository-level and account-level settings.
 ### Issue #4: Deprecated Docker Image
 - **Error:** *openjdk:8-jre-alpine* not found
 - **Fix:** openjdk:8-jre-alpine not found
-```
 <img width="286" height="36" alt="image" src="https://github.com/user-attachments/assets/fa181205-2126-4344-9709-cce8a7a745cf" />
-```
 
 ### Issue #5: Docker Not Found
 - **Error:** *docker: command not found*
