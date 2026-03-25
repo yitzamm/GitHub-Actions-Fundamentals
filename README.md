@@ -2,7 +2,7 @@
 
 March 25, 2026
 
-<img width="2494" height="2500" alt="image" src="https://github.com/user-attachments/assets/8c7be846-4b78-415b-aaec-2b009baeb152" />
+<img width="2000" height="665" alt="image" src="https://github.com/user-attachments/assets/b559e08f-1fef-4a85-8070-82407e2fed23" />
 
 This project demonstrates a CI/CD pipeline using GitHub Actions to build, test, and package a Java application with Gradle, and publish it as a Docker image to Docker Hub.
 
