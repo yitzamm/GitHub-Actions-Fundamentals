@@ -70,7 +70,7 @@ distributionUrl=https://services.gradle.org/distributions/gradle-7.6.4-bin.zip
 
 ### Issue #2: Deprecated Dependency Syntax
 - **Error:** *compile* / *testCompile* not supported
-- **Fix:** compile / testCompile not supported
+- **Fix:**
 ```
 compile       → implementation
 testCompile   → testImplementation
@@ -81,7 +81,7 @@ Also updated Spring Boot version to align with Java 17.
 
 ### Issue #3: Dependency Graph Disabled
 - **Error:** Dependency Graph Disabled
-- **Fix:** Enabled Dependency Graph
+- **Fix:**
 ```
 GitHub → Settings → Advanced Security → Enable Dependency Graph
 ```
@@ -89,7 +89,7 @@ GitHub → Settings → Advanced Security → Enable Dependency Graph
 
 ### Issue #4: Deprecated Docker Image
 - **Error:** *openjdk:8-jre-alpine* not found
-- **Fix:** openjdk:8-jre-alpine not found
+- **Fix:**
 <img width="286" height="36" alt="image" src="https://github.com/user-attachments/assets/fa181205-2126-4344-9709-cce8a7a745cf" />
 
 ### Issue #5: Docker Not Found
