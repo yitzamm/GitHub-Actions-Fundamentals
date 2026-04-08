@@ -1,0 +1,93 @@
+GIT WORKFLOWS
+
+Link to video: https://www.youtube.com/watch?v=GQQqf-C2ha4
+
+- GitFlow
+- GitHub Flow
+- Trunk-based Development
+
+GitFlow - The Structured Approach (from industry standard to bad practice)
+
+How GitFlow Works:
+
+main branch (production ready)
+  - hotfix branches (emergency fixes on production, pushed directly to main or develop to keep future releases aligned)
+
+develop branch (mainly used for integration)
+  - feature branches (building features in isolation, push from feature to develop)
+  - release branches (preparing deployments, push from develop to main)
+
+Use Cases:
+
+1- Software that ships in version e.g. mobile/desktop apps (traditional way)
+2- Support multiple versions simultaneously
+3- Large teams needing clear structure
+4- Industry where changes need approval
+
+Downsides:
+
+1- Slows down your development cycle (adds overhead and complexity)
+2- Doesn't play well with continuous delivery (merge conflicts)
+3- Not suitable for web applications that deploy continuously
+
+--------------------------------------------------------------------------------------------------------
+
+GitHub Flow - The Minimalist (simpler alternative)
+
+Core principal = "Anything in the main branch should always be deployable"
+
+How GitHub Flow Works:
+
+Secondary branches are created from the main branch, PRs are then reviewed, merged back to main and deployed to production
+
+Use Cases:
+
+1- Web apps that deploy constantly: SaaS, API, web services (anything hosted with only the latest version)
+2- Small to medium sized teams
+3- Solid automated testing and CI/CD pipelines
+4- Ship features of managing branches
+
+Downsides:
+
+1- Doesn't handle multiple versions (everything merges straight to prod)
+2- Demands discipline (requires the right guidelines and proper guardrails)
+3- Struggles when multiple teams are working on the same codebase
+
+--------------------------------------------------------------------------------------------------------
+
+Trunk-Based Development - The All-in Approach (best practice)
+
+Core principal: CI/CD
+
+How Trunk-based Development Works:
+
+Teams work on smaller commits by opening either short living feature branches or pushing straight to main. However, the code changes are hidden using feature flags when uploaded. Automated tests can then be ran on the updated code and if tests pass, the flags are switched to unhidden and the app goes live to production.
+
+Use Cases:
+
+1- Your team consists mainly of experienced developers
+2- Bulletproof automated testing (non-negotiable)
+3- Rapid integration and faster deployment (faster recovery times, faster iteration cycle)
+4- Shipping SaaS products with one version in production
+
+Downsides:
+
+1- Doesn't handle multiple versions
+2- Weak test coverage
+3- It requires a cultural shift (not suitable for junior/unexperienced developers)
+
+--------------------------------------------------------------------------------------------------------
+
+Practical Tips
+
+1- Automate everything you can, implement automated tests, automated CI/CD pipelines, linting, code formatting, automated security scanning and testing.
+
+  - Selenium: testing
+  - Jenkins: CI/CD pipelines
+  - GitLab: code + pipelines
+  - Trello: test tracking
+
+2- Document your process, write down your team's branching strategies, commit message conventions, code review expectations, pull request workflow details.
+3- Use tools that support your workflow, for example if you're using a trunk-based workflow you should use tbdflow which would automate common tasks like committing to main or creating short lived branches and enforcing conventional commit messages.
+4- Measure your performance, track metrics like deployment frequency (DF), lead time for changes (LT), mean time to recovery (MTTR) and change failure rate (CFR), these are called DORA metrics.
+5- Iterate, your workflow should evolve.
